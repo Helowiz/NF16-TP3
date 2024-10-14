@@ -37,4 +37,8 @@ int nombreOctetsGagnes(matrice_creuse m);
 element *creerElement(int colonne, int valeur);
 void viderBuffer ();
 
+// FONCTIONS AJOUTEE
+matrice_creuse* constructeurMatriceCreuse();
+void ajouterElement(liste_ligne *ligne, int col, int val);
+
 #endif // TP3_H_INCLUDED

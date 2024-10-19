@@ -1,0 +1,14 @@
+in-10 : une seule matrice
+in-11 : matrice vide
+in-12 : matrice de 100
+in-13 : matrice dimension negative
+in-14 : matrice a valeur negative
+in-30 : affichage liste chainer
+in-40 : recherche valeur
+in-41 : recherche valeur nul
+in-50 : affectation valeur existante
+in-51 : affectation nouvelle valeur
+in-70 : gain d'octet
+in-71 : aucun gain
+
+in-60 : addition

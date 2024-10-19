@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "tp3.h"
-#define OCTET_INT 4
 
 /*==============  FONCTIONS DEMANDEES ===============*/
 
@@ -26,7 +25,7 @@ void remplirMatrice(matrice_creuse *m, int N, int M) { //avant demander le nombr
 
 // 2.	Ecrire une fonction qui permet d�afficher une matrice creuse sous forme de tableau
 void afficherMatrice(matrice_creuse m){
-    int i, j, val = 0;
+    int i, j;
     liste_ligne current_element;
 
     printf("[");
@@ -43,6 +42,7 @@ void afficherMatrice(matrice_creuse m){
             if (j < m.Ncolonnes - 1) printf(", ");
         }
         printf("]");
+        if (i < m.Nlignes - 1) printf(",\n");
     }
     printf("]");
 }
@@ -68,11 +68,11 @@ void afficherMatriceListes(matrice_creuse m) {
 //  4.	Ecrire une fonction qui renvoie la valeur de l'�l�ment de la ligne i et la colonne j
 int rechercherValeur(matrice_creuse m, int i, int j) {
     int result = 0;
-    element* current_element = m.tab_lignes[i];
-    while (current_element){
-        if (current_element->col == j) return current_element->val;
-        if (current_element->col > j) return result;
-        current_element = current_element->suivant;
+    element* current = m.tab_lignes[i];
+    while (current){
+        if (current->col == j) return current->val;
+        if (current->col > j) return result;
+        current = current->suivant;
     }
     return result;
 }
@@ -81,24 +81,89 @@ int rechercherValeur(matrice_creuse m, int i, int j) {
 
 // 5.	Ecrire une fonction qui affecte une valeur donn�e � l'�l�ment de la ligne i et la colonne j
 void affecterValeur(matrice_creuse m, int i, int j, int val) {
+
     if (val == 0) return;
-    element* current_element = m.tab_lignes[i];
-    while (current_element){
-        if (current_element->col == j) current_element->val = val;
-        if (current_element->col > j) return;
-        current_element = current_element->suivant;
+
+    element* current = m.tab_lignes[i];
+    element* prev = NULL;
+
+    while (current) {
+        if (current->col == j) {
+            current->val = val; 
+            return;
+        }
+        if (current->col > j) {
+            element* nouv = creerElement(j, val);
+            if (prev) {
+                prev->suivant = nouv; 
+            } else {
+                m.tab_lignes[i] = nouv; 
+            }
+            nouv->suivant = current;
+            return;
+        }
+        prev = current;
+        current = current->suivant;
     }
-    return;
+
+    element* nouv = creerElement(j, val);
+    if (prev) {
+        prev->suivant = nouv;
+    } else {
+        m.tab_lignes[i] = nouv;
+    }
 }
 
 
 
 // 6.	Ecrire une fonction qui r�alise la somme de deux matrices
 void additionerMatrices(matrice_creuse m1, matrice_creuse m2) {
-    /*
-    * TO DO : Ecrire ici votre code
-    */
+  if (m1.Nlignes != m2.Nlignes || m1.Ncolonnes != m2.Ncolonnes) {
+      printf("Les matrices doivent avoir les mêmes dimensions.\n");
+      return;
+  }
+
+  for (int i = 0; i < m1.Nlignes; ++i) {
+      element* current1 = m1.tab_lignes[i];
+      element* current2 = m2.tab_lignes[i];
+      element* prev1 = NULL;
+
+      while (current2 != NULL) {
+          if (current1 == NULL) {
+              ajouterElement(&m1.tab_lignes[i], current2->col, current2->val);
+              current2 = current2->suivant;
+          }
+
+          if (current1->col == current2->col) {
+              current1->val += current2->val;
+
+              if (current1->val == 0) {
+                  if (prev1 == NULL) {
+                      m1.tab_lignes[i] = current1->suivant;
+                  } else {
+                      prev1->suivant = current1->suivant;
+                  }
+                  element* temp = current1;
+                  current1 = current1->suivant;
+                  free(temp);
+              } else {
+                  prev1 = current1;
+                  current1 = current1->suivant;
+              }
+              current2 = current2->suivant;
+          }
+          else if (current2->col < current1->col) {
+              ajouterElement(&m1.tab_lignes[i], current2->col, current2->val);
+              current2 = current2->suivant;
+          }
+          else {
+              prev1 = current1;
+              current1 = current1->suivant;
+          }
+      }
+  }
 }
+
 
 
 
@@ -116,6 +181,7 @@ int nombreOctetsGagnes(matrice_creuse m) {
     }
     return result;
 }
+
 
 
 

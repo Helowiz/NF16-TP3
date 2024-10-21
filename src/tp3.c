@@ -160,6 +160,7 @@ void additionerMatrices(matrice_creuse m1, matrice_creuse m2) {
             }
         }
     }
+    printf("Addition effectuée avec succès.\n");
 }
 
 // 7.	Ecrire une fonction qui retourne le nombre d�octets gagn�s

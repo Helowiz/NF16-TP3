@@ -11,8 +11,8 @@ in-40 : recherche valeur existante
 in-41 : recherche valeur nul
 in-42 : recherche valeur inexistante
 in-50 : affectation valeur existante
-in-51 : affectation nouvelle valeur avant
-in-52 : affectation valeur après
+in-51 : affectation nouvelle valeur après
+in-52 : affectation nouvelle valeur avant
 in-53 : affectation valeur inexistante
 in-60 : addition de deux matrice
 in-61 : addition de une matrice vide

@@ -112,13 +112,11 @@ int main() {
                     printf("ERREUR : Les char ne sont pas des int");
                     break;
                 } 
-                matrice_creuse* m = matrices[index];
-
                 if (index < 0 || index >= nombreMatrices) {
                     printf("Indice de matrice invalide.\n");
                     break;
                 }
-
+                matrice_creuse* m = matrices[index];
                 if (m->Ncolonnes == 0 && m->Nlignes == 0){
                     printf("    La matrice est vide");
                     break;
@@ -135,7 +133,7 @@ int main() {
                     break;
                 } 
 
-                if (nColonne <= m->Ncolonnes && nLigne <= m->Nlignes ){
+                if (nColonne < m->Ncolonnes && nLigne < m->Nlignes && nColonne > 0 && nLigne > 0){
                     printf("\n    Ligne : %d ;\n    Colonne : %d ;\n    Valeur : %d ;", nLigne, nColonne, rechercherValeur(*matrices[index], nLigne, nColonne));
                 }
                 else {
@@ -156,18 +154,15 @@ int main() {
                     printf("ERREUR : Les char ne sont pas des int");
                     break;
                 } 
-                matrice_creuse* m = matrices[index];
-
                 if (index < 0 || index >= nombreMatrices) {
                     printf("Indice de matrice invalide.\n");
                     break;
                 }
-
+                matrice_creuse* m = matrices[index];
                 if (m->Ncolonnes == 0 && m->Nlignes == 0){
                     printf("    La matrice est vide");
                     break;
                 }
-
                 printf("Veuillez entrer la ligne : ");
                 if (scanf("%d", &nLigne) != 1) {
                     printf("ERREUR : Les char ne sont pas des int");
@@ -179,10 +174,11 @@ int main() {
                     break;
                 } 
                 printf("Veuillez entrer la valeur : ");
-                if (scanf("%d", &valeur) != 1);{
+                if (scanf("%d", &valeur) != 1){
                     printf("ERREUR : Les char ne sont pas des int");
                     break;
-                }             if (nColonne <= m->Ncolonnes && nLigne <= m->Nlignes && valeur != 0){
+                }
+                if (nColonne < m->Ncolonnes && nLigne < m->Nlignes && valeur != 0){
                     affecterValeur(*matrices[index], nLigne, nColonne, valeur);
                     printf("La valeur a ete affectee");
                 } else {
@@ -208,20 +204,11 @@ int main() {
                     printf("ERREUR : Les char ne sont pas des int");
                     break;
                 } 
-
                 if (index1 < 0 || index1 >= nombreMatrices || index2 < 0 || index2 >= nombreMatrices) {
                     printf("Indices de matrices invalides.\n");
                     break;
                 }
-
-                if (matrices[index1]->Nlignes != matrices[index2]->Nlignes ||
-                    matrices[index1]->Ncolonnes != matrices[index2]->Ncolonnes) {
-                    printf("Les matrices doivent avoir les mêmes dimensions.\n");
-                    break;
-                }
-
                 additionerMatrices(*matrices[index1], *matrices[index2]);
-                printf("Addition effectuée avec succès.\n");
                 break;
             }
             case '7': 

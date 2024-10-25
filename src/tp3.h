@@ -40,6 +40,5 @@ void viderBuffer ();
 // FONCTIONS AJOUTEE
 matrice_creuse* constructeurMatriceCreuse();
 void deconstructeurMatriceCreuse(matrice_creuse m);
-void ajouterElement(liste_ligne *ligne, int col, int val);
 
 #endif // TP3_H_INCLUDED

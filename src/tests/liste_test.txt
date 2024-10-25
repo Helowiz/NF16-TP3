@@ -6,7 +6,9 @@ in-14 : matrice à valeur négative
 in-15 : matrice erreur utilisateur ligne
 in-16 : matrice erreur utilisateur valeur entrée
 in-20 : matrice affichage tableau
+in-21 : matrice affichage ligne null
 in-30 : affichage liste chainer
+in-31 : affichage liste chainer avec ligne null
 in-40 : recherche valeur existante
 in-41 : recherche valeur nul
 in-42 : recherche valeur inexistante

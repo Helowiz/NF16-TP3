@@ -18,7 +18,7 @@ int main() {
         printf("\n2. Afficher une matrice creuse sous forme de tableau");
         printf("\n3. Afficher une matrice creuse sous forme de listes");
         printf("\n4. Donner la valeur d'un element d'une matrice creuse");
-        printf("\n5. Affecter une valeur � un �l�ment d�une matrice creuse");
+        printf("\n5. Affecter une valeur a un element d'une matrice creuse");
         printf("\n6. Additionner deux matrices creuses");
         printf("\n7. Calculer le gain");
         printf("\n8. Quitter");
@@ -28,48 +28,41 @@ int main() {
         switch (choix) {
             case '1' :
             {
-                int nbLigne, nbColonne;
                 printf("\n### Remplir une nouvelle matrice creuse ###\n");
+                int nbLigne, nbColonne;
+
                 printf("Veuillez entrer le nombre de lignes de la matrice : ");
-                if (scanf("%d", &nbLigne) != 1) {
-                    printf("ERREUR : Les char ne sont pas des int");
+                if (!scanf("%d", &nbLigne)) {
+                    printf("ERREUR : Le nombre saisi doit être un entier");
                     break;
                 }
-                printf("Veuillez entrer le nombre de colonnes de la matrice : ");
-                if (scanf("%d", &nbColonne) != 1) {
-                    printf("ERREUR : Les char ne sont pas des int");
-                    break;
-                } 
 
-                if (nbLigne < 0 || nbColonne < 0) {
-                    printf("Les dimensions de la matrice doivent être positives\n");
+                printf("Veuillez entrer le nombre de colonnes de la matrice : ");
+                if (!scanf("%d", &nbColonne)) {
+                    printf("ERREUR : Le nombre saisi doit être un entier");
                     break;
                 }
 
                 if (nombreMatrices >= MAX_MATRICES) {
-                    printf("Nombre maximum de matrices atteint\n");
+                    printf("ERREUR : Nombre maximum de matrices atteint\n");
                     break;
                 }
 
                 matrice_creuse* m = constructeurMatriceCreuse(nbLigne, nbColonne);
                 remplirMatrice(m, nbLigne, nbColonne);
                 matrices[nombreMatrices++] = m;
-                printf("Matrice créée et remplie avec succès\n");
                 break;
             }
             case '2' :
             {
                 printf("\n### Afficher une matrice creuse sous forme de tableau ###\n");
-                if (nombreMatrices == 0) {
-                    printf("Aucune matrice à afficher.\n");
+                int index;
+
+                printf("Choisissez la matrice à afficher [0...%d] : ", nombreMatrices - 1);
+                if (!scanf("%d", &index)) {
+                    printf("ERREUR : Le nombre saisi doit être un entier");
                     break;
                 }
-                int index;
-                printf("Choisissez la matrice à afficher (0-%d) : ", nombreMatrices - 1);
-                if (scanf("%d", &index) != 1) {
-                    printf("ERREUR : Les char ne sont pas des int");
-                    break;
-                } 
 
                 if (index < 0 || index >= nombreMatrices) {
                     printf("Indice de matrice invalide.\n");
@@ -78,19 +71,16 @@ int main() {
                 }
                 break;
             }
-            case '3': 
+            case '3':
             {
                 printf("\n### Afficher une matrice creuse sous forme de listes ###\n");
-                if (nombreMatrices == 0) {
-                    printf("Aucune matrice à afficher.\n");
+                int index;
+
+                printf("Choisissez la matrice à afficher [0...%d] : ", nombreMatrices - 1);
+                if (!scanf("%d", &index)) {
+                    printf("ERREUR : Le nombre saisi doit être un entier");
                     break;
                 }
-                int index;
-                printf("Choisissez la matrice à afficher (0-%d) : ", nombreMatrices - 1);
-                if (scanf("%d", &index) != 1) {
-                    printf("ERREUR : Les char ne sont pas des int");
-                    break;
-                } 
 
                 if (index < 0 || index >= nombreMatrices) {
                     printf("Indice de matrice invalide.\n");
@@ -99,94 +89,95 @@ int main() {
                 }
                 break;
             }
-            case '4': 
+            case '4':
             {
                 printf("\n### Donner la valeur d'un élément d'une matrice creuse ###\n");
-                if (nombreMatrices == 0) {
-                    printf("Aucune matrice disponible.\n");
+                int index, nLigne, nColonne;
+
+                printf("Choisissez la matrice [0...%d] : ", nombreMatrices - 1);
+                if (!scanf("%d", &index)) {
+                    printf("ERREUR : Le nombre saisi doit être un entier");
                     break;
                 }
-                int index, nLigne, nColonne;
-                printf("Choisissez la matrice (0-%d) : ", nombreMatrices - 1);
-                if (scanf("%d", &index) != 1) {
-                    printf("ERREUR : Les char ne sont pas des int");
-                    break;
-                } 
+
                 if (index < 0 || index >= nombreMatrices) {
                     printf("Indice de matrice invalide.\n");
                     break;
                 }
+
                 matrice_creuse* m = matrices[index];
                 if (m->Ncolonnes == 0 && m->Nlignes == 0){
-                    printf("    La matrice est vide");
+                    printf("La matrice est vide");
                     break;
                 }
 
                 printf("Veuillez entrer la ligne : ");
-                if (scanf("%d", &nLigne) != 1) {
-                    printf("ERREUR : Les char ne sont pas des int");
+                if (!scanf("%d", &nLigne)) {
+                    printf("ERREUR : Le nombre saisi doit être un entier");
                     break;
-                } 
-                printf("Veuillez entrer la colonne : ");
-                if (scanf("%d", &nColonne) != 1) {
-                    printf("ERREUR : Les char ne sont pas des int");
-                    break;
-                } 
-
-                if (nColonne < m->Ncolonnes && nLigne < m->Nlignes && nColonne > 0 && nLigne > 0){
-                    printf("\n    Ligne : %d ;\n    Colonne : %d ;\n    Valeur : %d ;", nLigne, nColonne, rechercherValeur(*matrices[index], nLigne, nColonne));
                 }
-                else {
-                      printf("    Les valeurs colonnes ou lignes entree sont trop grande pour la matrice d�finit");
+
+                printf("Veuillez entrer la colonne : ");
+                if (!scanf("%d", &nColonne)) {
+                    printf("ERREUR : Le nombre saisi doit être un entier");
+                    break;
+                }
+
+                if (nColonne < m->Ncolonnes && nLigne < m->Nlignes && nColonne >= 0 && nLigne >= 0){
+                    printf("\n    Ligne : %d ;\n    Colonne : %d ;\n    Valeur : %d ;", nLigne, nColonne, rechercherValeur(*matrices[index], nLigne, nColonne));
+                } else {
+                    printf("    Les valeurs colonnes ou lignes entree sont trop grande pour la matrice définit");
                 }
                 break;
             }
-            case '5': 
+            case '5':
             {
                 printf("\n### Affecter une valeur à un élément d'une matrice creuse ###\n");
-                if (nombreMatrices == 0) {
-                    printf("Aucune matrice disponible.\n");
+                int index, nLigne, nColonne, valeur;
+
+                printf("Choisissez la matrice [0...%d] : ", nombreMatrices - 1);
+                if (!scanf("%d", &index)) {
+                    printf("ERREUR : Le nombre saisi doit être un entier");
                     break;
                 }
-                int index, nLigne, nColonne, valeur;
-                printf("Choisissez la matrice (0-%d) : ", nombreMatrices - 1);
-                if (scanf("%d", &index) != 1) {
-                    printf("ERREUR : Les char ne sont pas des int");
-                    break;
-                } 
                 if (index < 0 || index >= nombreMatrices) {
                     printf("Indice de matrice invalide.\n");
                     break;
                 }
+
                 matrice_creuse* m = matrices[index];
                 if (m->Ncolonnes == 0 && m->Nlignes == 0){
-                    printf("    La matrice est vide");
+                    printf("La matrice est vide");
                     break;
                 }
+
                 printf("Veuillez entrer la ligne : ");
-                if (scanf("%d", &nLigne) != 1) {
-                    printf("ERREUR : Les char ne sont pas des int");
-                    break;
-                } 
-                printf("Veuillez entrer la colonne : ");
-                if (scanf("%d", &nColonne) != 1) {
-                    printf("ERREUR : Les char ne sont pas des int");
-                    break;
-                } 
-                printf("Veuillez entrer la valeur : ");
-                if (scanf("%d", &valeur) != 1){
-                    printf("ERREUR : Les char ne sont pas des int");
+                if (!scanf("%d", &nLigne)) {
+                    printf("ERREUR : Le nombre saisi doit être un entier");
                     break;
                 }
-                if (nColonne < m->Ncolonnes && nLigne < m->Nlignes && valeur != 0){
-                    affecterValeur(*matrices[index], nLigne, nColonne, valeur);
-                    printf("La valeur a ete affectee");
+
+                printf("Veuillez entrer la colonne : ");
+                if (!scanf("%d", &nColonne)) {
+                    printf("ERREUR : Le nombre saisi doit être un entier");
+                    break;
+                }
+
+                printf("Veuillez entrer la valeur : ");
+                if (!scanf("%d", &valeur)){
+                    printf("ERREUR : Le nombre saisi doit être un entier");
+                    break;
+                }
+
+                if (nLigne > m->Nlignes && nColonne > m->Ncolonnes && nLigne < 0 && nColonne < 0){
+                    printf("Les valeurs du numéro de ligne ou de colonne est incorrect");
                 } else {
-                    printf("    Les valeurs colonnes ou lignes entree sont trop grande pour la matrice d�finit");
+                    affecterValeur(*matrices[index], nLigne, nColonne, valeur);
+                    printf("La valeur à bien été affecté");
                 }
                 break;
             }
-            case '6': 
+            case '6':
             {
                 printf("\n### Additionner deux matrices creuses ###\n");
                 if (nombreMatrices < 2) {
@@ -194,16 +185,16 @@ int main() {
                     break;
                 }
                 int index1, index2;
-                printf("Choisissez la première matrice (0-%d) : ", nombreMatrices - 1);
-                if (scanf("%d", &index1) != 1) {
-                    printf("ERREUR : Les char ne sont pas des int");
+                printf("Choisissez la premiere matrice [0...%d] : ", nombreMatrices - 1);
+                if (!scanf("%d", &index1)) {
+                    printf("ERREUR : Le nombre saisi doit être un entier");
                     break;
-                } 
-                printf("Choisissez la deuxième matrice (0-%d) : ", nombreMatrices - 1);
-                if (scanf("%d", &index2) != 1) {
-                    printf("ERREUR : Les char ne sont pas des int");
+                }
+                printf("Choisissez la deuxieme matrice [0...%d] : ", nombreMatrices - 1);
+                if (!scanf("%d", &index2)) {
+                    printf("ERREUR : Le nombre saisi doit être un entier");
                     break;
-                } 
+                }
                 if (index1 < 0 || index1 >= nombreMatrices || index2 < 0 || index2 >= nombreMatrices) {
                     printf("Indices de matrices invalides.\n");
                     break;
@@ -211,26 +202,21 @@ int main() {
                 additionerMatrices(*matrices[index1], *matrices[index2]);
                 break;
             }
-            case '7': 
+            case '7':
             {
                 printf("\n### Calcul du gain de mémoire ###\n");
-                if (nombreMatrices == 0) {
-                    printf("Aucune matrice disponible.\n");
+                int index;
+                printf("Choisissez la matrice [0...%d] : ", nombreMatrices - 1);
+                if (!scanf("%d", &index)) {
+                    printf("ERREUR : Le nombre saisi doit être un entier");
                     break;
                 }
-                int index;
-                printf("Choisissez la matrice (0-%d) : ", nombreMatrices - 1);
-                if (scanf("%d", &index) != 1) {
-                    printf("ERREUR : Les char ne sont pas des int");
-                    break;
-                } 
-
                 if (index < 0 || index >= nombreMatrices) {
                     printf("Indice de matrice invalide.\n");
-                } else {
-                    int gain = nombreOctetsGagnes(*matrices[index]);
-                    printf("Gain de mémoire : %d octets\n", gain);
+                    break;
                 }
+
+                printf("Gain de mémoire : %d octets\n", nombreOctetsGagnes(*matrices[index]));
                 break;
             }
             case '8' :

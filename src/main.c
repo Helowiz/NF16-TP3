@@ -168,8 +168,7 @@ int main() {
                     printf("ERREUR : Le nombre saisi doit être un entier");
                     break;
                 }
-
-                if (nLigne > m->Nlignes && nColonne > m->Ncolonnes && nLigne < 0 && nColonne < 0){
+                if (nLigne >= m->Nlignes || nColonne >= m->Ncolonnes || nLigne < 0 || nColonne < 0){
                     printf("Les valeurs du numéro de ligne ou de colonne est incorrect");
                 } else {
                     affecterValeur(*matrices[index], nLigne, nColonne, valeur);
@@ -206,6 +205,7 @@ int main() {
             {
                 printf("\n### Calcul du gain de mémoire ###\n");
                 int index;
+
                 printf("Choisissez la matrice [0...%d] : ", nombreMatrices - 1);
                 if (!scanf("%d", &index)) {
                     printf("ERREUR : Le nombre saisi doit être un entier");
